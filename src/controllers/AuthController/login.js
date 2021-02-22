@@ -49,17 +49,24 @@ export const loginUser = wrap(async (req, res) => {
   if (!isPasswordCorrect)
     throw new ControllerError(errors.incorrectEmailOrPassword)
 
-  const [, authToken] = genToken(token_types.auth, user.get())
-  const [refreshTokenId, refreshToken] = genToken(
+  const [authToken] = genToken(token_types.auth, user.get())
+  const [refreshToken, refreshTokenPayload, refreshTokenOpts] = genToken(
     token_types.refresh,
     user.get(),
   )
 
-  console.log(refreshTokenId)
+  console.log(refreshTokenOpts.expiresIn)
+
+  console.log(
+    new Date(Date.now() + ms(refreshTokenOpts.expiresIn)).toISOString(),
+  )
 
   db.RefreshTokens.create({
     userId: user.id,
-    tokenId: refreshTokenId,
+    tokenId: refreshTokenPayload.tokenId,
+    expiresIn: new Date(
+      Date.now() + ms(refreshTokenOpts.expiresIn),
+    ).toISOString(),
   })
 
   let atCookieOpts = {

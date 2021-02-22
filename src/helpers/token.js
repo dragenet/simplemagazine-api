@@ -33,7 +33,7 @@ export const genPayload = (data, tokenType) => {
   payload.iat = Date.now()
 
   let randomizedPayload = Object.assign({}, payload)
-  randomizedPayload.random = crypto.randomBytes(256)
+  randomizedPayload.salt = crypto.randomBytes(256)
   payload.tokenId = crypto
     .createHash('sha256')
     .update(JSON.stringify(randomizedPayload))
@@ -55,7 +55,7 @@ export const genToken = (type, data, options, secret) => {
     ...options,
   }
 
-  return [payload.tokenId, jwt.sign(payload, jwtSecret, opts)]
+  return [jwt.sign(payload, jwtSecret, opts), payload, opts]
 }
 
 export const verifyToken = (type, token, options, secret) => {

@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: true,
       },
+      expiresIn: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
     },
     {
       sequelize,
