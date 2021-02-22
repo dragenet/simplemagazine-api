@@ -58,9 +58,7 @@ export const genToken = (type, data, options, secret) => {
   return [jwt.sign(payload, jwtSecret, opts), payload, opts]
 }
 
-export const verifyToken = (type, token, options, secret) => {
-  isTypeValid(type)
-
+export const verifyToken = (token, options, secret) => {
   const jwtSecret = evalSecret(secret)
 
   const opts = {

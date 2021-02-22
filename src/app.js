@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 
 import routes from './routes'
 import errorHandler from './helpers/errorHandler'
@@ -11,6 +12,7 @@ const app = express()
 const port = 3000
 
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 app.use('/api', routes)
 

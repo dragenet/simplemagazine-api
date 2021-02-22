@@ -16,4 +16,9 @@ export default {
     message: "Email/name doesn't exists or password is incorrect",
     httpStatus: httpStat.badRequest,
   },
+  unauthenticated: {
+    code: 'ERR_UNAUTHENTICATED',
+    message: 'To access this resource please login or register',
+    httpStatus: httpStat.unauthorized,
+  },
 }
