@@ -8,7 +8,7 @@ const redirectToRefresh = (req, res) => {
   res.redirect(307, '/api/auth/refresh')
 }
 
-const authMiddleware = (req, res, next) => {
+export const authorized = (req, res, next) => {
   const accessToken = req.cookies.access_token
   const refreshToken = req.cookies.refresh_token
 
@@ -29,5 +29,3 @@ const authMiddleware = (req, res, next) => {
 
   next()
 }
-
-export default authMiddleware
