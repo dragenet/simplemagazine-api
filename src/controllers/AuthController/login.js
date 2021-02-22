@@ -11,9 +11,7 @@ import ControllerError from '../../helpers/ControllerError'
 import errors from '../../helpers/errors'
 import httpStat from '../../helpers/httpStatus'
 import { genToken, token_types } from '../../helpers/token'
-
-const evalSecureCookie = () =>
-  process.env.NODE_ENV === 'production' ? true : false
+import setTokenCookies from '../../helpers/setTokenCookies'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body
@@ -49,16 +47,10 @@ export const loginUser = wrap(async (req, res) => {
   if (!isPasswordCorrect)
     throw new ControllerError(errors.incorrectEmailOrPassword)
 
-  const [authToken] = genToken(token_types.auth, user.get())
+  const [accessToken] = genToken(token_types.access, user.get())
   const [refreshToken, refreshTokenPayload, refreshTokenOpts] = genToken(
     token_types.refresh,
     user.get(),
-  )
-
-  console.log(refreshTokenOpts.expiresIn)
-
-  console.log(
-    new Date(Date.now() + ms(refreshTokenOpts.expiresIn)).toISOString(),
   )
 
   db.RefreshTokens.create({
@@ -69,16 +61,9 @@ export const loginUser = wrap(async (req, res) => {
     ).toISOString(),
   })
 
-  let atCookieOpts = {
-    httpOnly: true,
-    maxAge: ms(process.env.AUTH_TOKEN_EXPIRATION_TIME),
-    secure: evalSecureCookie(),
-  }
-  res.cookie('access_token', authToken, atCookieOpts)
+  setTokenCookies(res, token_types.access, accessToken)
 
-  let rtCookieOpts = Object.assign({}, atCookieOpts)
-  rtCookieOpts.maxAge = ms(process.env.REFRESH_TOKEN_EXPIRATION_TIME)
-  res.cookie('refresh_token', refreshToken, rtCookieOpts)
+  setTokenCookies(res, token_types.refresh, refreshToken)
 
   const successful = {
     message: 'User loged in',
