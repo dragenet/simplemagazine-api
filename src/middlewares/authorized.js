@@ -21,13 +21,11 @@ const authMiddleware = (req, res, next) => {
   }
 
   try {
-    verifyToken(accessToken)
+    const tokenData = verifyToken(accessToken)
+    res.user = tokenData.data
   } catch (err) {
     return redirectToRefresh(req, res)
   }
-
-  console.log(accessToken)
-  console.log(refreshToken)
 
   next()
 }
