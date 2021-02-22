@@ -2,12 +2,12 @@ import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 
 export const token_types = {
-  auth: 'auth',
+  access: 'access',
   refresh: 'refresh',
 }
 
-const isTypeValid = type => {
-  if (type !== token_types.auth && type !== token_types.refresh)
+export const isTypeValid = type => {
+  if (type !== token_types.access && type !== token_types.refresh)
     throw Error('Token type unspecified')
 }
 
