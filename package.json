@@ -1,0 +1,49 @@
+{
+  "name": "@simplemagazine/api",
+  "version": "1.0.0",
+  "description": "Api endpoint for simplemagazine - an open source magazine software",
+  "main": "src/app.js",
+  "scripts": {
+    "predevexec": "npm run lint",
+    "devexec": "babel-node src/app.js",
+    "dev": "nodemon --exec npm run devexec",
+    "build": "babel src/* -d dist",
+    "start": "node dist/app.js",
+    "clean": "rm -R dist",
+    "lint": "eslint src/**/*.js",
+    "test": "jest src/**/*"
+  },
+  "author": "dragenet <dragenetdev@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "eslint-plugin-jest": "^24.1.5",
+    "express": "^4.17.1",
+    "express-async-wrapper": "^0.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "ms": "^2.1.3",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/node": "^7.12.16",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/register": "^7.12.13",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
+}

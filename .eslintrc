@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "babel",
+    "jest"
+  ],
+  "globals": {
+    "process": "readonly",
+    "console": "readonly",
+    "module": "readonly"
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "rules": {
+    "no-unused-vars":"warn"
+  }
+}
