@@ -1,10 +1,15 @@
 import express from 'express'
 
-import { loginUser, refreshTokens } from '../controllers/AuthController'
+import {
+  loginUser,
+  refreshTokens,
+  logoutUser,
+} from '../controllers/AuthController'
 
 const user = express.Router()
 
 user.post('/login', loginUser)
-user.use('/refresh', refreshTokens)
+user.all('/refresh', refreshTokens)
+user.get('/logout', logoutUser)
 
 export default user
