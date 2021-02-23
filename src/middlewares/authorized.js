@@ -1,6 +1,6 @@
-import { verifyToken } from '../helpers/token'
-import ControllerError from '../helpers/ControllerError'
-import errors from '../helpers/errors'
+import { verifyToken } from '@/helpers/token'
+import ControllerError from '@/helpers/ControllerError'
+import { errors } from '@/utils'
 
 const redirectToRefresh = (req, res) => {
   res.cookie('back_referer', req.originalUrl)

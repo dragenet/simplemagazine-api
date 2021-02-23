@@ -1,4 +1,4 @@
-import errors from './errors'
+import { errors } from '@/utils'
 
 class ControllerError extends Error {
   constructor(error, message, code, httpStatus) {

@@ -1,9 +1,8 @@
 import wrap from 'express-async-wrapper'
-import db from '../../db/models'
-import ControllerError from '../../helpers/ControllerError'
-import errors from '../../helpers/errors'
-import httpStatus from '../../helpers/httpStatus'
-import User from '../../models/User'
+import db from '@/db/models'
+import ControllerError from '@/helpers/ControllerError'
+import { errors, httpStatus } from '@/utils'
+import User from '@/models/User'
 
 export const getUser = wrap(async (req, res) => {
   const dbUser = await db.User.findOne({

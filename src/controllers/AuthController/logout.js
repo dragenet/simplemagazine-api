@@ -1,6 +1,6 @@
 import { token_types } from '../../helpers/token'
-import { clearTokenCookie } from '../../helpers/tokenCookies'
-import httpStat from '../../helpers/httpStatus'
+import { clearTokenCookie } from '@/helpers/tokenCookies'
+import { httpStatus } from '@/utils'
 
 export const logoutUser = (req, res) => {
   clearTokenCookie(res, token_types.access)
@@ -8,5 +8,5 @@ export const logoutUser = (req, res) => {
   const successful = {
     message: 'User logged out successfuly',
   }
-  res.status(httpStat.ok).json(successful)
+  res.status(httpStatus.ok).json(successful)
 }

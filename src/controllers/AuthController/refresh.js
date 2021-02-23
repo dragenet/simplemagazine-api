@@ -1,11 +1,10 @@
 import wrap from 'express-async-wrapper'
 import ms from 'ms'
-import db from '../../db/models'
-import ControllerError from '../../helpers/ControllerError'
-import errors from '../../helpers/errors'
-import httpStat from '../../helpers/httpStatus'
-import { setTokenCookie } from '../../helpers/tokenCookies'
-import { genToken, token_types, verifyToken } from '../../helpers/token'
+import db from '@/db/models'
+import ControllerError from '@/helpers/ControllerError'
+import { errors, httpStat } from '@/utils'
+import { setTokenCookie } from '@/helpers/tokenCookies'
+import { genToken, token_types, verifyToken } from '@/helpers/token'
 
 export const refreshTokens = wrap(async (req, res) => {
   const backReferer = req.cookies.back_referer

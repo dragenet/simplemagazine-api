@@ -1,7 +1,7 @@
 import express from 'express'
 
-import { registerUser, getUser } from '../controllers/UserController'
-import { authorized } from '../middlewares'
+import { registerUser, getUser } from '@/controllers/UserController'
+import { authorized } from '@/middlewares'
 
 const user = express.Router()
 

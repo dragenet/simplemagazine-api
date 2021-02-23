@@ -1,4 +1,4 @@
-export default {
+export const httpStatus = {
   ok: 200,
   created: 201,
   badRequest: 400,

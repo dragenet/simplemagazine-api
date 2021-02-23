@@ -7,6 +7,19 @@
     ["@babel/plugin-transform-runtime", {
       "regenerator": true
     }],
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    ["babel-plugin-root-import", {
+      "paths": [
+        {
+          "rootPathSuffix": "./",
+          "rootPathPrefix": "~/"
+        },
+        {
+          "rootPathSuffix": "./src",
+          "rootPathPrefix": "@/"
+        }
+      ]
+      
+    }]
   ]
 }

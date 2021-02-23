@@ -2,13 +2,12 @@
 import wrap from 'express-async-wrapper'
 
 //models
-import db from '../../db/models'
-import User from '../../models/User'
+import db from '@/db/models'
+import User from '@/models/User'
 
 //helpers
-import ControllerError from '../../helpers/ControllerError'
-import errors from '../../helpers/errors'
-import httpStat from '../../helpers/httpStatus'
+import ControllerError from '@/helpers/ControllerError'
+import { errors, httpStatus } from '@/utils'
 
 const checkIsUserExists = async user => {
   const res = await db.User.findAll({
@@ -37,5 +36,5 @@ export const registerUser = wrap(async (req, res) => {
     user: newUser.get(),
   }
 
-  res.status(httpStat.created).json(responseJson)
+  res.status(httpStatus.created).json(responseJson)
 })

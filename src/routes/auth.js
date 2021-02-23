@@ -4,7 +4,7 @@ import {
   loginUser,
   refreshTokens,
   logoutUser,
-} from '../controllers/AuthController'
+} from '@/controllers/AuthController'
 
 const user = express.Router()
 

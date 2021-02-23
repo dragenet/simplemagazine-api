@@ -3,15 +3,14 @@ import wrap from 'express-async-wrapper'
 import ms from 'ms'
 
 //models
-import db from '../../db/models'
-import User from '../../models/User'
+import db from '@/db/models'
+import User from '@/models/User'
 
 //helpers
-import ControllerError from '../../helpers/ControllerError'
-import errors from '../../helpers/errors'
-import httpStat from '../../helpers/httpStatus'
-import { genToken, token_types } from '../../helpers/token'
-import { setTokenCookie } from '../../helpers/tokenCookies'
+import ControllerError from '@/helpers/ControllerError'
+import { errors, httpStat } from '@/utils'
+import { genToken, token_types } from '@/helpers/token'
+import { setTokenCookie } from '@/helpers/tokenCookies'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body
