@@ -4,7 +4,7 @@ import db from '../../db/models'
 import ControllerError from '../../helpers/ControllerError'
 import errors from '../../helpers/errors'
 import httpStat from '../../helpers/httpStatus'
-import setTokenCookie from '../../helpers/setTokenCookies'
+import { setTokenCookie } from '../../helpers/tokenCookies'
 import { genToken, token_types, verifyToken } from '../../helpers/token'
 
 export const refreshTokens = wrap(async (req, res) => {

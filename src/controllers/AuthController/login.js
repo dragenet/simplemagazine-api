@@ -11,7 +11,7 @@ import ControllerError from '../../helpers/ControllerError'
 import errors from '../../helpers/errors'
 import httpStat from '../../helpers/httpStatus'
 import { genToken, token_types } from '../../helpers/token'
-import setTokenCookies from '../../helpers/setTokenCookies'
+import { setTokenCookie } from '../../helpers/tokenCookies'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body
@@ -61,9 +61,9 @@ export const loginUser = wrap(async (req, res) => {
     ).toISOString(),
   })
 
-  setTokenCookies(res, token_types.access, accessToken)
+  setTokenCookie(res, token_types.access, accessToken)
 
-  setTokenCookies(res, token_types.refresh, refreshToken)
+  setTokenCookie(res, token_types.refresh, refreshToken)
 
   const successful = {
     message: 'User loged in',
