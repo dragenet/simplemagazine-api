@@ -22,7 +22,7 @@ export const authorized = (req, res, next) => {
 
   try {
     const tokenData = verifyToken(accessToken)
-    res.user = tokenData.data
+    req.user = tokenData.data
   } catch (err) {
     return redirectToRefresh(req, res)
   }

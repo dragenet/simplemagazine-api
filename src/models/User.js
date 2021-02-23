@@ -33,7 +33,7 @@ class User {
       const res = bcrypt.hashSync(password, saltRounds)
       return res
     } else {
-      throw new Error('Cannot create password hash')
+      return undefined
     }
   }
 
