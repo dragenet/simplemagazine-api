@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import routes from './routes'
-import errorHandler from './helpers/errorHandler'
+import { errorHandler } from './helpers'
 
 import dotenv from 'dotenv'
 dotenv.config()

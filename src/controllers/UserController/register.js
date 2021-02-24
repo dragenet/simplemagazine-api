@@ -6,7 +6,7 @@ import db from '@/db/models'
 import User from '@/models/User'
 
 //helpers
-import ControllerError from '@/helpers/ControllerError'
+import { ControllerError } from '@/helpers'
 import { errors, httpStatus } from '@/utils'
 
 const checkIsUserExists = async user => {

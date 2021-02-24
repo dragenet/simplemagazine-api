@@ -1,5 +1,4 @@
-import { verifyToken } from '@/helpers/token'
-import ControllerError from '@/helpers/ControllerError'
+import { ControllerError, verifyToken } from '@/helpers'
 import { errors } from '@/utils'
 
 const redirectToRefresh = (req, res) => {

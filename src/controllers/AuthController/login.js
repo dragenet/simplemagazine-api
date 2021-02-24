@@ -7,10 +7,13 @@ import db from '@/db/models'
 import User from '@/models/User'
 
 //helpers
-import ControllerError from '@/helpers/ControllerError'
+import {
+  ControllerError,
+  genToken,
+  token_types,
+  setTokenCookie,
+} from '@/helpers'
 import { errors, httpStat } from '@/utils'
-import { genToken, token_types } from '@/helpers/token'
-import { setTokenCookie } from '@/helpers/tokenCookies'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body

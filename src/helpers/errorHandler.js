@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err)
   }
@@ -10,5 +10,3 @@ const errorHandler = (err, req, res, next) => {
     message: err.code ? err.message : 'Unknow error',
   })
 }
-
-export default errorHandler

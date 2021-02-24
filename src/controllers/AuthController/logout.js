@@ -1,5 +1,4 @@
-import { token_types } from '../../helpers/token'
-import { clearTokenCookie } from '@/helpers/tokenCookies'
+import { clearTokenCookie, token_types } from '@/helpers'
 import { httpStatus } from '@/utils'
 
 export const logoutUser = (req, res) => {

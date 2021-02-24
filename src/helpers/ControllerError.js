@@ -1,6 +1,6 @@
 import { errors } from '@/utils'
 
-class ControllerError extends Error {
+export class ControllerError extends Error {
   constructor(error, message, code, httpStatus) {
     let err = errors.default
 
@@ -18,5 +18,3 @@ class ControllerError extends Error {
     this.httpStatus = err.httpStatus || 500
   }
 }
-
-export default ControllerError
