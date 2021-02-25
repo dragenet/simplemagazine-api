@@ -1,12 +1,10 @@
 import jwt from 'jsonwebtoken'
 import db from '@/db/models'
 
-export const invalidateToken = async token => {
-  const tokenEnc = jwt.decode(token)
-
+export const invalidateToken = async tokenData => {
   const tokenDb = await db.RefreshTokens.findOne({
     where: {
-      tokenId: tokenEnc.tokenId,
+      tokenId: tokenData.tokenId,
     },
   })
 

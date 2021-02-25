@@ -13,4 +13,8 @@ export const responses = {
     code: 'SUCCESS_USER_LOGGED_OUT',
     message: 'User logged out successfuly',
   },
+  tokenRegeneratedSuccessfuly: {
+    code: 'SUCCESS_TOKEN_REGENERATED',
+    message: 'Tokens regenerated successfuly',
+  },
 }
