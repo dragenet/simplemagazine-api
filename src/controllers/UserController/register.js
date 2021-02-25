@@ -2,7 +2,6 @@
 import wrap from 'express-async-wrapper'
 
 //models
-import db from '@/db/models'
 import { User } from '@/models'
 
 //adapters
@@ -21,11 +20,11 @@ export const registerUser = wrap(async (req, res) => {
   const { name, email, password } = user
   const newUser = new User({ name, email, password })
 
-  const createdUserData = await db.User.create(newUser)
+  const createdUser = await UserAdapter.createUser(newUser)
 
   const responseJson = {
     message: 'User created',
-    user: newUser.get(),
+    user: createdUser.get(),
   }
 
   res.status(httpStatus.created).json(responseJson)
