@@ -1,2 +1,3 @@
 import * as UserAdapter from './UserAdapter'
-export { UserAdapter }
+import * as RefreshTokenAdapter from './RefreshTokenAdapter'
+export { UserAdapter, RefreshTokenAdapter }
