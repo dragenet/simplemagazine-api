@@ -1,19 +1,19 @@
 //libs
 import wrap from 'express-async-wrapper'
 import ms from 'ms'
+//
 
-//models
 import db from '@/db/models'
 import { User } from '@/models'
 
-//helpers
 import {
   ControllerError,
   genToken,
   token_types,
   setTokenCookie,
 } from '@/helpers'
-import { errors, httpStatus } from '@/utils'
+
+import { errors, httpStatus, responses } from '@/utils'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body
@@ -64,9 +64,5 @@ export const loginUser = wrap(async (req, res) => {
 
   setTokenCookie(res, token_types.refresh, refreshToken)
 
-  const successful = {
-    message: 'User loged in',
-    user: user.get(),
-  }
-  res.status(httpStatus.ok).json(successful)
+  res.status(httpStatus.ok).json(responses.userLogedinSuccessfuly(user.get()))
 })
