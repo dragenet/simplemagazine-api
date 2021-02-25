@@ -7,10 +7,7 @@ beforeEach(() => {
 
 describe('User model', () => {
   it('Check user returned value when password specified using getDangerously', () => {
-    const genHashMock = jest.spyOn(User.prototype, 'createPasswordHash')
-
-    genHashMock.mockReturnValue('awensomeHash')
-
+    console.log('Create User')
     const user = new User({
       name: 'John',
       email: 'john@doe.jd',
@@ -20,10 +17,8 @@ describe('User model', () => {
     expect(user.getDangerously()).toMatchObject({
       name: 'John',
       email: 'john@doe.jd',
-      passwordHash: 'awensomeHash',
+      passwordHash: expect.any(String),
     })
-
-    genHashMock.mockRestore()
   })
 
   it('Check user returned value when passwordHash specified using getDangerously', () => {
@@ -57,11 +52,11 @@ describe('User model', () => {
 
   it('Check user error throwing when user null or undefined', () => {
     const createUserNull = () => {
-      return new User({ email: 'john@doe.jd', password: 'aaa' }, true)
+      return new User({ email: 'john@doe.jd', password: 'aaa' }, ['all'])
     }
 
     const createUserUndefined = () => {
-      return new User({ email: 'john@doe.jd', password: 'aaa' }, true)
+      return new User({ email: 'john@doe.jd', password: 'aaa' }, ['all'])
     }
 
     expect(createUserNull).toThrowError(new Error('Name invalid'))
@@ -70,11 +65,11 @@ describe('User model', () => {
 
   it('Check user error throwing when email null or undefined', () => {
     const createUserNull = () => {
-      return new User({ name: 'John', email: null, password: 'aaa' }, true)
+      return new User({ name: 'John', email: null, password: 'aaa' }, ['all'])
     }
 
     const createUserUndefined = () => {
-      return new User({ name: 'John', password: 'aaa' }, true)
+      return new User({ name: 'John', password: 'aaa' }, ['all'])
     }
 
     expect(createUserNull).toThrowError(new Error('Email invalid'))
