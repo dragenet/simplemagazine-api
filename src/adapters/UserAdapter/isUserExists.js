@@ -1,10 +1,10 @@
 import db from '@/db/models'
 
 /**
- * @typedef {import('@/models/User')} User
+ * @typedef {import {User} from '@/models'} User
  */
-
 /**
+ * isUserExists.
  * Check if specified user exists in database
  *
  * @param {User} user
