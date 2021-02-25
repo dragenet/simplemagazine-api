@@ -1,21 +1,9 @@
 import wrap from 'express-async-wrapper'
-import db from '@/db/models'
-import { ControllerError } from '@/helpers'
-import { errors, httpStatus } from '@/utils'
-import { User } from '@/models'
+import { httpStatus } from '@/utils'
+import { UserAdapter } from '@/adapters'
 
 export const getUser = wrap(async (req, res) => {
-  const dbUser = await db.User.findOne({
-    where: {
-      id: req.user.id,
-    },
-  })
+  const dbUser = await UserAdapter.getUser(req.user)
 
-  if (!dbUser || dbUser === null) throw new ControllerError(errors.default)
-
-  const dbUserData = dbUser.dataValues
-
-  const user = new User(dbUserData.name, dbUser.email, null, null, dbUser.id)
-
-  res.status(httpStatus.ok).json(user.get())
+  res.status(httpStatus.ok).json(dbUser.get())
 })
