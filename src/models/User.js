@@ -1,16 +1,20 @@
 import bcrypt from 'bcrypt'
 
 class User {
-  constructor(name, email, password, passwordHash, id) {
-    this.name = this.nameValidate(name)
-    this.email = this.emailValidate(email)
-    this.password = password
-    this.passwordHash = this.createPasswordHash(password, passwordHash)
-    this.id = id
+  constructor(obj, validate = false) {
+    if (validate) obj = this.validateFields(obj)
+    obj.passwordHash = this.createPasswordHash(obj.password, obj.passwordHash)
+    Object.assign(this, obj)
   }
 
+  validateFields(obj) {
+    obj.name = this.nameValidate(obj.name)
+    obj.email = this.emailValidate(obj.email)
+    return obj
+  }
+  res
   nameValidate(name) {
-    if (name && name !== null) {
+    if (name) {
       return name
     } else {
       throw new Error('Name invalid')
@@ -18,7 +22,7 @@ class User {
   }
 
   emailValidate(email) {
-    if (email && email !== null) {
+    if (email) {
       return email
     } else {
       throw new Error('Email invalid')
@@ -26,9 +30,9 @@ class User {
   }
 
   createPasswordHash(password, passwordHash) {
-    if (passwordHash && passwordHash !== null) {
+    if (passwordHash) {
       return passwordHash
-    } else if (password && password !== null) {
+    } else if (password) {
       const saltRounds = parseInt(process.env.PASSWORD_HASH_SALT_ROUNDS)
       const res = bcrypt.hashSync(password, saltRounds)
       return res
@@ -38,15 +42,16 @@ class User {
   }
 
   getDangerously() {
-    return this
+    const tmp = Object.assign({}, this)
+    delete tmp['password']
+    return tmp
   }
 
   get() {
-    return {
-      id: this.id,
-      name: this.name,
-      email: this.email,
-    }
+    const tmp = Object.assign({}, this)
+    delete tmp['password']
+    delete tmp['passwordHash']
+    return tmp
   }
 
   async verifyPassword() {

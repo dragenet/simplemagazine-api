@@ -11,10 +11,13 @@ describe('User model', () => {
 
     genHashMock.mockReturnValue('awensomeHash')
 
-    const user = new User('John', 'john@doe.jd', 'aaa')
+    const user = new User({
+      name: 'John',
+      email: 'john@doe.jd',
+      password: 'aaa',
+    })
 
     expect(user.getDangerously()).toMatchObject({
-      id: undefined,
       name: 'John',
       email: 'john@doe.jd',
       passwordHash: 'awensomeHash',
@@ -24,13 +27,12 @@ describe('User model', () => {
   })
 
   it('Check user returned value when passwordHash specified using getDangerously', () => {
-    const user = new User(
-      'John',
-      'john@doe.jd',
-      null,
-      'awensomePasswordHash',
-      21,
-    )
+    const user = new User({
+      id: 21,
+      name: 'John',
+      email: 'john@doe.jd',
+      passwordHash: 'awensomePasswordHash',
+    })
     expect(user.getDangerously()).toMatchObject({
       id: 21,
       name: 'John',
@@ -40,13 +42,12 @@ describe('User model', () => {
   })
 
   it('Check user returned object without passwordHash when using secure get ', () => {
-    const user = new User(
-      'John',
-      'john@doe.jd',
-      null,
-      'awensomePasswordHash',
-      10,
-    )
+    const user = new User({
+      id: 10,
+      name: 'John',
+      email: 'john@doe.jd',
+      passwordHash: 'awensomePasswordHash',
+    })
     expect(user.get()).toStrictEqual({
       id: 10,
       name: 'John',
@@ -56,11 +57,11 @@ describe('User model', () => {
 
   it('Check user error throwing when user null or undefined', () => {
     const createUserNull = () => {
-      return new User(null, 'john@doe.jd', 'aaa')
+      return new User({ email: 'john@doe.jd', password: 'aaa' }, true)
     }
 
     const createUserUndefined = () => {
-      return new User(undefined, 'john@doe.jd', 'aaa')
+      return new User({ email: 'john@doe.jd', password: 'aaa' }, true)
     }
 
     expect(createUserNull).toThrowError(new Error('Name invalid'))
@@ -69,44 +70,37 @@ describe('User model', () => {
 
   it('Check user error throwing when email null or undefined', () => {
     const createUserNull = () => {
-      return new User('John', null, 'aaa')
+      return new User({ name: 'John', email: null, password: 'aaa' }, true)
     }
 
     const createUserUndefined = () => {
-      return new User('John', undefined, 'aaa')
+      return new User({ name: 'John', password: 'aaa' }, true)
     }
 
     expect(createUserNull).toThrowError(new Error('Email invalid'))
     expect(createUserUndefined).toThrowError(new Error('Email invalid'))
   })
 
-  it('Check user error throwing when password and passwordHash null or undefined', () => {
-    const createUserNull = () => {
-      return new User('John', 'john@doe.jd', null, null)
-    }
-
-    const createUserUndefined = () => {
-      return new User('John', 'john@doe.jd')
-    }
-
-    expect(createUserNull).toThrowError(
-      new Error('Cannot create password hash'),
-    )
-    expect(createUserUndefined).toThrowError(
-      new Error('Cannot create password hash'),
-    )
-  })
-
   it('Check user password verification with correct password', async () => {
     const hash = await bcrypt.hash('superPassword', 10)
-    const user = new User('John', 'john@doe.jd', 'superPassword', hash)
+    const user = new User({
+      name: 'John',
+      email: 'john@doe.jd',
+      password: 'superPassword',
+      passwordHash: hash,
+    })
     const res = await user.verifyPassword()
     expect(res).toBeTruthy()
   })
 
   it('Check user password verification with incorrect password', async () => {
     const hash = await bcrypt.hash('superAwensomePassword', 10)
-    const user = new User('John', 'john@doe.jd', 'superPassword', hash)
+    const user = new User({
+      name: 'John',
+      email: 'john@doe.jd',
+      password: 'superPassword',
+      passwordHash: hash,
+    })
     const res = await user.verifyPassword()
     expect(res).toBeFalsy()
   })

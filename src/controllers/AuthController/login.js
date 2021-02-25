@@ -13,7 +13,7 @@ import {
   token_types,
   setTokenCookie,
 } from '@/helpers'
-import { errors, httpStat } from '@/utils'
+import { errors, httpStatus } from '@/utils'
 
 export const loginUser = wrap(async (req, res) => {
   const data = req.body
@@ -37,13 +37,10 @@ export const loginUser = wrap(async (req, res) => {
 
   const dbUser = userRecord.dataValues
 
-  const user = new User(
-    dbUser.name,
-    dbUser.email,
-    data.password,
-    dbUser.passwordHash,
-    dbUser.id,
-  )
+  const user = new User({
+    ...dbUser,
+    password: data.password,
+  })
 
   const isPasswordCorrect = await user.verifyPassword()
   if (!isPasswordCorrect)
@@ -71,5 +68,5 @@ export const loginUser = wrap(async (req, res) => {
     message: 'User loged in',
     user: user.get(),
   }
-  res.status(httpStat.ok).json(successful)
+  res.status(httpStatus.ok).json(successful)
 })
