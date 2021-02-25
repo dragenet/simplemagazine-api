@@ -1,3 +1,4 @@
+import { User } from '@/models'
 import { ControllerError, verifyToken } from '@/helpers'
 import { errors } from '@/utils'
 
@@ -21,7 +22,7 @@ export const authorized = (req, res, next) => {
 
   try {
     const tokenData = verifyToken(accessToken)
-    req.user = tokenData.data
+    req.user = new User({ ...tokenData.data })
   } catch (err) {
     return redirectToRefresh(req, res)
   }
