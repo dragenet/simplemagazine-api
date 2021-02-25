@@ -5,6 +5,11 @@
     "database": "simplemagazine_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
+    "dialectOptions": {
+      "useUTC": "true"
+    },
+    "keepDefaultTimezone": false,
+    "timezone": "+00:00"
   },
   "test": {
     "username": "",
