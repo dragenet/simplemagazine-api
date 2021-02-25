@@ -11,6 +11,7 @@ export class User {
     validate.forEach(el => {
       if (el === 'all' || el === 'name') this.nameValidate()
       if (el === 'all' || el === 'email') this.emailValidate()
+      if (el === 'all' || el === 'password') this.passwordValidate()
     })
   }
 
@@ -23,6 +24,12 @@ export class User {
   emailValidate() {
     if (!this.email) {
       throw new Error('Email invalid')
+    }
+  }
+
+  passwordValidate() {
+    if (!this.password) {
+      throw new Error('Password invalid')
     }
   }
 
@@ -49,5 +56,9 @@ export class User {
   async verifyPassword() {
     const res = await bcrypt.compare(this.password, this.passwordHash)
     return res
+  }
+
+  extend(obj) {
+    Object.assign(this, { ...this, ...obj })
   }
 }
