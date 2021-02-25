@@ -9,7 +9,7 @@ import { UserAdapter } from '@/adapters'
 
 //helpers
 import { ControllerError } from '@/helpers'
-import { errors, httpStatus } from '@/utils'
+import { errors, httpStatus, responses } from '@/utils'
 
 export const registerUser = wrap(async (req, res) => {
   const user = req.body
@@ -22,10 +22,7 @@ export const registerUser = wrap(async (req, res) => {
 
   const createdUser = await UserAdapter.createUser(newUser)
 
-  const responseJson = {
-    message: 'User created',
-    user: createdUser.get(),
-  }
-
-  res.status(httpStatus.created).json(responseJson)
+  res
+    .status(httpStatus.created)
+    .json(responses.userCreatedSuccessfuly(createdUser.get()))
 })
