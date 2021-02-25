@@ -8,3 +8,4 @@ export {
   verifyToken,
 } from './token'
 export { setTokenCookie, clearTokenCookie } from './tokenCookies'
+export { catchError } from './catchError'

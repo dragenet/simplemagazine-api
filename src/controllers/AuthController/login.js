@@ -6,6 +6,8 @@ import ms from 'ms'
 import db from '@/db/models'
 import { User } from '@/models'
 
+import { UserAdapter, RefreshTokenAdapter } from '@/adapters'
+
 import {
   ControllerError,
   genToken,
@@ -16,53 +18,29 @@ import {
 import { errors, httpStatus, responses } from '@/utils'
 
 export const loginUser = wrap(async (req, res) => {
-  const data = req.body
+  const recvUser = new User({ ...req.body }, ['email', 'password'])
 
-  if (
-    !data.email ||
-    data.email === null ||
-    !data.password ||
-    data.password === null
-  )
+  let user
+  try {
+    user = await UserAdapter.getUser(recvUser)
+  } catch (err) {
     throw new ControllerError(errors.incorrectEmailOrPassword)
+  }
 
-  let userRecord = await db.User.findOne({
-    where: {
-      email: data.email,
-    },
-  })
-
-  if (userRecord === null)
-    throw new ControllerError(errors.incorrectEmailOrPassword)
-
-  const dbUser = userRecord.dataValues
-
-  const user = new User({
-    ...dbUser,
-    password: data.password,
+  user.extend({
+    password: recvUser.password,
   })
 
   const isPasswordCorrect = await user.verifyPassword()
   if (!isPasswordCorrect)
     throw new ControllerError(errors.incorrectEmailOrPassword)
 
-  const [accessToken] = genToken(token_types.access, user.get())
-  const [refreshToken, refreshTokenPayload, refreshTokenOpts] = genToken(
-    token_types.refresh,
-    user.get(),
-  )
-
-  db.RefreshTokens.create({
-    userId: user.id,
-    tokenId: refreshTokenPayload.tokenId,
-    expiresIn: new Date(
-      Date.now() + ms(refreshTokenOpts.expiresIn),
-    ).toISOString(),
-  })
-
+  const { token: accessToken } = genToken(token_types.access, user.get())
   setTokenCookie(res, token_types.access, accessToken)
 
-  setTokenCookie(res, token_types.refresh, refreshToken)
+  const refreshToken = genToken(token_types.refresh, user.get())
+  RefreshTokenAdapter.addToken(refreshToken)
+  setTokenCookie(res, token_types.refresh, refreshToken.token)
 
   res.status(httpStatus.ok).json(responses.userLogedinSuccessfuly(user.get()))
 })
