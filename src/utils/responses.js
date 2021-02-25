@@ -9,4 +9,8 @@ export const responses = {
     message: 'User logged in successfuly',
     user,
   }),
+  userLoggedoutSuccessfuly: {
+    code: 'SUCCESS_USER_LOGGED_OUT',
+    message: 'User logged out successfuly',
+  },
 }

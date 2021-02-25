@@ -1,11 +1,11 @@
+import { RefreshTokenAdapter } from '@/adapters'
 import { clearTokenCookie, token_types } from '@/helpers'
-import { httpStatus } from '@/utils'
+import { httpStatus, responses } from '@/utils'
 
 export const logoutUser = (req, res) => {
   clearTokenCookie(res, token_types.access)
   clearTokenCookie(res, token_types.refresh)
-  const successful = {
-    message: 'User logged out successfuly',
-  }
-  res.status(httpStatus.ok).json(successful)
+  RefreshTokenAdapter.invalidateToken(req.cookies.refresh_token)
+
+  res.status(httpStatus.ok).json(responses.userLoggedoutSuccessfuly)
 }
