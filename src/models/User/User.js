@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 
-class User {
+export class User {
   constructor(obj, validate = false) {
     if (validate) obj = this.validateFields(obj)
     obj.passwordHash = this.createPasswordHash(obj.password, obj.passwordHash)
@@ -59,5 +59,3 @@ class User {
     return res
   }
 }
-
-export default User

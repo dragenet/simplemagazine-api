@@ -4,7 +4,7 @@ import ms from 'ms'
 
 //models
 import db from '@/db/models'
-import User from '@/models/User'
+import { User } from '@/models'
 
 //helpers
 import {
