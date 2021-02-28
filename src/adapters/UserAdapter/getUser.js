@@ -13,5 +13,5 @@ export const getUser = async user => {
     },
   })
   if (!dbUser) throw new Error('Cannot get user')
-  return new User({ ...dbUser.dataValues })
+  return new User({ ...dbUser.dataValues, orm: dbUser })
 }

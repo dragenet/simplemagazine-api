@@ -43,6 +43,7 @@ export class User {
   getDangerously() {
     const tmp = Object.assign({}, this)
     delete tmp['password']
+    delete tmp['orm']
     return tmp
   }
 
@@ -50,6 +51,7 @@ export class User {
     const tmp = Object.assign({}, this)
     delete tmp['password']
     delete tmp['passwordHash']
+    delete tmp['orm']
     return tmp
   }
 
