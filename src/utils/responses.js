@@ -4,6 +4,11 @@ export const responses = {
     message: 'User created successfuly',
     user,
   }),
+  userUpdatedSuccessfuly: user => ({
+    code: 'SUCCESS_USER_UPDATE',
+    message: 'User updated succesfuly',
+    user,
+  }),
   userLogedinSuccessfuly: user => ({
     code: 'SUCCESS_USER_LOGGED_IN',
     message: 'User logged in successfuly',
