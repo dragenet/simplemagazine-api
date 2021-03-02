@@ -9,6 +9,10 @@ export const responses = {
     message: 'User updated succesfuly',
     user,
   }),
+  userRemovedSuccessfuly: {
+    code: 'SUCCESS_USER_REMOVED',
+    message: 'User removed succesfuly',
+  },
   userLogedinSuccessfuly: user => ({
     code: 'SUCCESS_USER_LOGGED_IN',
     message: 'User logged in successfuly',
