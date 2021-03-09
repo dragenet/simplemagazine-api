@@ -9,15 +9,16 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 4000
+const entryPoint = '/api' || process.env.ENTRY_POINT
 
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/api', routes)
+app.use(entryPoint, routes)
 
 app.use(errorHandler)
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
